@@ -83,4 +83,5 @@ export default {
   hide: null,
   hidden: null,
   pick: null,
+  isBCE: null,
 };

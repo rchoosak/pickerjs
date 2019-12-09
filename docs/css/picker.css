@@ -5,7 +5,7 @@
  * Copyright 2016-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2019-02-18T13:08:09.658Z
+ * Date: 2019-12-09T09:48:54.239Z
  */
 
 :root {
@@ -209,7 +209,6 @@
   position: absolute;
   top: 50%;
   -webkit-transform: translate(-50%, -50%) rotate(-45deg);
-  -ms-transform: translate(-50%, -50%) rotate(-45deg);
   transform: translate(-50%, -50%) rotate(-45deg);
   width: 0.5rem;
 }

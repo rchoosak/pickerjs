@@ -5,7 +5,7 @@
  * Copyright 2016-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2019-02-18T13:08:12.801Z
+ * Date: 2019-12-09T09:49:04.278Z
  */
 
 (function (global, factory) {
@@ -115,7 +115,8 @@
     shown: null,
     hide: null,
     hidden: null,
-    pick: null
+    pick: null,
+    isBCE: null
   };
 
   var TEMPLATE = '<div class="picker" data-picker-action="hide" touch-action="none" tabindex="-1" role="dialog">' + '<div class="picker-dialog" role="document">' + '<div class="picker-header">' + '<h4 class="picker-title">{{ title }}</h4>' + '<button type="button" class="picker-close" data-picker-action="hide" aria-label="Close">&times;</button>' + '</div>' + '<div class="picker-body">' + '<div class="picker-grid"></div>' + '</div>' + '<div class="picker-footer">' + '<button type="button" class="picker-cancel" data-picker-action="hide">{{ cancel }}</button>' + '<button type="button" class="picker-confirm" data-picker-action="pick">{{ confirm }}</button>' + '</div>' + '</div>' + '</div>';
@@ -1260,12 +1261,23 @@
               var index = date.indexOf(digit);
               var isHyphen = date.substr(index - 1, 1) === '-';
               var isBC = index > 1 && isHyphen && /\S/.test(date.substr(index - 2, 1)) || index === 1 && isHyphen;
-              parsedDate.setFullYear(isBC ? -n : n);
+
+              if (options.isBCE) {
+                parsedDate.setFullYear(isBC ? -(n + 543) : n - 543);
+              } else {
+                parsedDate.setFullYear(isBC ? -n : n);
+              }
+
               break;
             }
 
           case 'YY':
-            parsedDate.setFullYear(2000 + n);
+            if (options.isBCE) {
+              parsedDate.setFullYear(2500 + n - 543);
+            } else {
+              parsedDate.setFullYear(2000 + n);
+            }
+
             break;
 
           case 'MMMM':
@@ -1324,7 +1336,9 @@
       var formatted = '';
 
       if (isValidDate(date)) {
-        var year = date.getFullYear();
+        var year = options.isBCE ? date.toLocaleDateString('en-US-u-ca-buddhist', {
+          year: 'numeric'
+        }) : date.getFullYear();
         var month = date.getMonth();
         var day = date.getDate();
         var hours = date.getHours();
@@ -1451,6 +1465,21 @@
 
         setData(element, NAMESPACE, this);
         var options = this.options;
+
+        if (options.isBCE) {
+          if (options.translate) {
+            var definedTranslate = options.translate;
+
+            options.translate = function (type, text) {
+              return type === 'year' ? definedTranslate(type, Number(text) + 543) : definedTranslate(type, text);
+            };
+          } else {
+            options.translate = function (type, text) {
+              return type === 'year' ? Number(text) + 543 : text;
+            };
+          }
+        }
+
         var isInput = REGEXP_INPUTS.test(element.tagName);
         var inline = options.inline && (options.container || !isInput);
         var template = document.createElement('div');

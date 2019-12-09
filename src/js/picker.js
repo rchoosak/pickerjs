@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import DEFAULTS from './defaults';
 import TEMPLATE from './template';
 import events from './events';
@@ -64,6 +65,16 @@ class Picker {
     setData(element, NAMESPACE, this);
 
     const { options } = this;
+
+    if (options.isBCE) {
+      if (options.translate) {
+        const definedTranslate = options.translate;
+        options.translate = (type, text) => (type === 'year' ? definedTranslate(type, Number(text) + 543) : definedTranslate(type, text));
+      } else {
+        options.translate = (type, text) => (type === 'year' ? Number(text) + 543 : text);
+      }
+    }
+
     const isInput = REGEXP_INPUTS.test(element.tagName);
     const inline = options.inline && (options.container || !isInput);
     const template = document.createElement('div');

@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import {
   CLASS_OPEN,
   CLASS_OPENED,
@@ -298,12 +299,20 @@ export default {
           const isBC = (index > 1 && isHyphen && /\S/.test(date.substr(index - 2, 1)))
             || (index === 1 && isHyphen);
 
-          parsedDate.setFullYear(isBC ? -n : n);
+          if (options.isBCE) {
+            parsedDate.setFullYear(isBC ? -(n + 543) : n - 543);
+          } else {
+            parsedDate.setFullYear(isBC ? -n : n);
+          }
           break;
         }
 
         case 'YY':
-          parsedDate.setFullYear(2000 + n);
+          if (options.isBCE) {
+            parsedDate.setFullYear(2500 + n - 543);
+          } else {
+            parsedDate.setFullYear(2000 + n);
+          }
           break;
 
         case 'MMMM':
@@ -362,7 +371,7 @@ export default {
     let formatted = '';
 
     if (isValidDate(date)) {
-      const year = date.getFullYear();
+      const year = options.isBCE ? date.toLocaleDateString('en-US-u-ca-buddhist', { year: 'numeric' }) : date.getFullYear();
       const month = date.getMonth();
       const day = date.getDate();
       const hours = date.getHours();
