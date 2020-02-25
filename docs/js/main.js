@@ -93,6 +93,7 @@ window.onload = function () {
 
     options[name] = value;
     picker.destroy();
+    console.log(options);
     picker = new Picker(input, options);
   }, false);
 
@@ -185,6 +186,14 @@ window.onload = function () {
 
       return Number(text) + suffixes[type];
     },
+  });
+
+
+  new Picker(document.querySelector(".js-bce-picker"), {
+    controls: true,
+    format: "DD/MM/YYYY",
+    isBCE: true,
+    headers: true
   });
 
   if (typeof hljs !== 'undefined') {

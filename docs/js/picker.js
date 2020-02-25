@@ -5,7 +5,7 @@
  * Copyright 2016-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2019-12-09T09:49:04.278Z
+ * Date: 2020-02-25T02:35:12.945Z
  */
 
 (function (global, factory) {
@@ -1336,9 +1336,9 @@
       var formatted = '';
 
       if (isValidDate(date)) {
-        var year = options.isBCE ? date.toLocaleDateString('en-US-u-ca-buddhist', {
+        var year = options.isBCE ? date.toLocaleDateString('th-TH-u-ca-buddhist', {
           year: 'numeric'
-        }) : date.getFullYear();
+        }).replace(/[^0-9]/gi, '') : date.getFullYear();
         var month = date.getMonth();
         var day = date.getDate();
         var hours = date.getHours();

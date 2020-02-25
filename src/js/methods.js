@@ -371,7 +371,9 @@ export default {
     let formatted = '';
 
     if (isValidDate(date)) {
-      const year = options.isBCE ? date.toLocaleDateString('en-US-u-ca-buddhist', { year: 'numeric' }) : date.getFullYear();
+      const year = options.isBCE
+        ? date.toLocaleDateString('th-TH-u-ca-buddhist', { year: 'numeric' }).replace(/[^0-9]/gi, '')
+        : date.getFullYear();
       const month = date.getMonth();
       const day = date.getDate();
       const hours = date.getHours();
