@@ -23,6 +23,9 @@ export default {
   // Define the language. (An ISO language code).
   language: '',
 
+  // Shows headers like year/Month/Day/Hour/Minute
+  showGridHeaders:false,
+
   // Months' name.
   months: [
     'January',
@@ -70,6 +73,15 @@ export default {
     minute: 'Minute',
     second: 'Second',
     millisecond: 'Millisecond',
+  },
+  gridHeader:{
+    year:"Year",
+    month:"Month",
+    day:"Day",
+    hour:"Hour",
+    minute:"Minute",
+    second:"Second",
+    milisecond:"Milisecond"
   },
 
   // Translate date / time text.
