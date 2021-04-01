@@ -83,4 +83,6 @@ export default {
   hide: null,
   hidden: null,
   pick: null,
+  min: null,
+  max: null,
 };
