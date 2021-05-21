@@ -105,9 +105,9 @@
 
 .picker-grid {
   display: table;
-  table-layout: fixed;
   margin-bottom: -2.5rem;
   margin-top: -2.5rem;
+  table-layout: fixed;
   width: 100%;
 }
 
@@ -301,11 +301,12 @@
 }
 
 .picker-column-cell-description {
-  padding: .5em;
-  display: table-cell;
-  text-align: center;
   background-image: url(./up.png);
+  display: table-cell;
+  padding: 0.5em;
+  text-align: center;
 }
+
 .invisible {
   display: none;
 }

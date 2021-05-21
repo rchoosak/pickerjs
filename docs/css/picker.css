@@ -5,11 +5,12 @@
  * Copyright 2016-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2021-04-01T11:22:38.207Z
+ * Date: 2021-05-20T05:19:34.511Z
  */
 
 :root {
   --gray: #999;
+  --grid-column-desc: #efefef;
   --blue: #0074d9;
   --color: #333;
   --background-color: #fff;
@@ -125,6 +126,8 @@
 
 .picker-grid {
   display: table;
+  margin-bottom: -2.5rem;
+  margin-top: -2.5rem;
   table-layout: fixed;
   width: 100%;
 }
@@ -312,4 +315,23 @@
 .picker-confirm {
   color: #0074d9;
   color: var(--blue);
+}
+
+.picker-column-description {
+  background-color: #efefef;
+  background-color: var(--grid-column-desc);
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.picker-column-cell-description {
+  background-image: url(./up.png);
+  display: table-cell;
+  padding: 0.5em;
+  text-align: center;
+}
+
+.invisible {
+  display: none;
 }

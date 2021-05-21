@@ -104,7 +104,7 @@ class Picker {
       if (!container) {
         container = element;
       }
-    } else { 
+    } else {
       const { ownerDocument } = element;
       const body = ownerDocument.body || ownerDocument.documentElement;
 

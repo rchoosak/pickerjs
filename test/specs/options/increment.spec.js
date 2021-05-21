@@ -18,7 +18,7 @@ describe('increment (option)', () => {
       increment,
     });
 
-    var futureMonth = new Date();
+    const futureMonth = new Date();
     futureMonth.setMonth(futureMonth.getMonth() + increment);
 
     expect(Number(picker.picker.querySelector('.picker-picked[data-name="year"]').nextElementSibling.dataset.value)).to.equal(date.getFullYear() + increment);
@@ -50,7 +50,7 @@ describe('increment (option)', () => {
       },
     });
 
-    var futureMonth = new Date();
+    const futureMonth = new Date();
     futureMonth.setMonth(futureMonth.getMonth() + increment);
 
     expect(Number(picker.picker.querySelector('.picker-picked[data-name="year"]').nextElementSibling.dataset.value)).to.equal(date.getFullYear() + increment);

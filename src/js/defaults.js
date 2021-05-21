@@ -24,7 +24,7 @@ export default {
   language: '',
 
   // Shows headers like year/Month/Day/Hour/Minute
-  showGridHeaders:false,
+  showGridHeaders: false,
 
   // Months' name.
   months: [
@@ -74,14 +74,14 @@ export default {
     second: 'Second',
     millisecond: 'Millisecond',
   },
-  gridHeader:{
-    year:"Year",
-    month:"Month",
-    day:"Day",
-    hour:"Hour",
-    minute:"Minute",
-    second:"Second",
-    milisecond:"Milisecond"
+  gridHeader: {
+    year: 'Year',
+    month: 'Month',
+    day: 'Day',
+    hour: 'Hour',
+    minute: 'Minute',
+    second: 'Second',
+    milisecond: 'Milisecond',
   },
 
   // Translate date / time text.

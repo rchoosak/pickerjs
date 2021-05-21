@@ -20,10 +20,9 @@ describe('showGridHeaders (option)', () => {
     const input = window.createInput();
     new Picker(input, {
       container,
-      showGridHeaders:true
+      showGridHeaders: true,
     });
 
     expect(container.getElementsByClassName('picker-column-description')[0].classList.contains('invisible')).to.be.false;
   });
-
 });

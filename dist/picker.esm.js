@@ -5,7 +5,7 @@
  * Copyright 2016-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2021-04-01T11:22:56.364Z
+ * Date: 2021-05-20T05:19:51.114Z
  */
 
 function _typeof(obj) {
@@ -81,6 +81,8 @@ var DEFAULTS = {
   inline: false,
   // Define the language. (An ISO language code).
   language: '',
+  // Shows headers like year/Month/Day/Hour/Minute
+  showGridHeaders: false,
   // Months' name.
   months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   // Shorter months' name.
@@ -100,6 +102,15 @@ var DEFAULTS = {
     second: 'Second',
     millisecond: 'Millisecond'
   },
+  gridHeader: {
+    year: 'Year',
+    month: 'Month',
+    day: 'Day',
+    hour: 'Hour',
+    minute: 'Minute',
+    second: 'Second',
+    milisecond: 'Milisecond'
+  },
   // Translate date / time text.
   translate: function translate(type, text) {
     return text;
@@ -113,7 +124,7 @@ var DEFAULTS = {
   isBCE: null
 };
 
-var TEMPLATE = '<div class="picker" data-picker-action="hide" touch-action="none" tabindex="-1" role="dialog">' + '<div class="picker-dialog" role="document">' + '<div class="picker-header">' + '<h4 class="picker-title">{{ title }}</h4>' + '<button type="button" class="picker-close" data-picker-action="hide" aria-label="Close">&times;</button>' + '</div>' + '<div class="picker-body">' + '<div class="picker-grid"></div>' + '</div>' + '<div class="picker-footer">' + '<button type="button" class="picker-cancel" data-picker-action="hide">{{ cancel }}</button>' + '<button type="button" class="picker-confirm" data-picker-action="pick">{{ confirm }}</button>' + '</div>' + '</div>' + '</div>';
+var TEMPLATE = '<div class="picker" data-picker-action="hide" touch-action="none" tabindex="-1" role="dialog">' + '<div class="picker-dialog" role="document">' + '<div class="picker-header">' + '<h4 class="picker-title">{{ title }}</h4>' + '<button type="button" class="picker-close" data-picker-action="hide" aria-label="Close">&times;</button>' + '</div>' + '<div class="picker-column-description invisible">' + '</div>' + '<div class="picker-body">' + '<div class="picker-grid"></div>' + '</div>' + '<div class="picker-footer">' + '<button type="button" class="picker-cancel" data-picker-action="hide">{{ cancel }}</button>' + '<button type="button" class="picker-confirm" data-picker-action="pick">{{ confirm }}</button>' + '</div>' + '</div>' + '</div>';
 
 var IS_BROWSER = typeof window !== 'undefined';
 var WINDOW = IS_BROWSER ? window : {};
@@ -1486,7 +1497,13 @@ function () {
       }));
       var picker = template.getElementsByClassName(NAMESPACE)[0];
       var grid = picker.getElementsByClassName("".concat(NAMESPACE, "-grid"))[0];
+      var gridColumnDescription = picker.getElementsByClassName('picker-column-description')[0];
       var container = options.container;
+      var showGridHeaders = options.showGridHeaders;
+
+      if (showGridHeaders) {
+        gridColumnDescription.classList.remove('invisible');
+      }
 
       if (isString(container)) {
         container = document.querySelector(container);
@@ -1517,6 +1534,7 @@ function () {
       this.container = container;
       this.picker = picker;
       this.grid = grid;
+      this.gridColumnDescription = gridColumnDescription;
       this.cell = null;
       this.format = parseFormat(options.format);
       var initialValue = this.getValue();
@@ -1564,6 +1582,7 @@ function () {
         var cell = document.createElement('div');
         var cellBody = document.createElement('div');
         var list = document.createElement('ul');
+        var columnDescription = document.createElement('div');
         var data = {
           digit: token.length,
           increment: Math.abs(Number(increment[type])) || 1,
@@ -1581,6 +1600,7 @@ function () {
               data.min = 0;
             }
 
+            columnDescription.textContent = options.gridHeader.year;
             break;
 
           case 'M':
@@ -1594,6 +1614,7 @@ function () {
               data.aliases = options.months;
             }
 
+            columnDescription.textContent = options.gridHeader.month;
             break;
 
           case 'D':
@@ -1603,26 +1624,31 @@ function () {
             };
 
             data.min = 1;
+            columnDescription.textContent = options.gridHeader.day;
             break;
 
           case 'H':
             data.max = 23;
             data.min = 0;
+            columnDescription.textContent = options.gridHeader.hour;
             break;
 
           case 'm':
             data.max = 59;
             data.min = 0;
+            columnDescription.textContent = options.gridHeader.minute;
             break;
 
           case 's':
             data.max = 59;
             data.min = 0;
+            columnDescription.textContent = options.gridHeader.second;
             break;
 
           case 'S':
             data.max = 999;
             data.min = 0;
+            columnDescription.textContent = options.gridHeader.milisecond;
             break;
 
           default:
@@ -1661,6 +1687,9 @@ function () {
           cell.appendChild(next);
         }
 
+        addClass(columnDescription, 'picker-column-cell-description');
+        cell.appendChild(list);
+        gridColumnDescription.appendChild(columnDescription);
         grid.appendChild(cell);
         _this.data[type] = data;
 
